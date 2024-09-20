@@ -13,4 +13,14 @@ class Enrollment extends Model
         'student_accounts_id',
         'subjects_id'
     ];
+
+    public function studentAccount() 
+    {
+        return $this->belongsTo(StudentAccount::class);
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

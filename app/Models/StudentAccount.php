@@ -14,6 +14,17 @@ class StudentAccount extends Model
         'password',
         'first_name',
         'middle_name',
-        'last_name'
+        'last_name',
+        'section_id',
     ];
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, enrollments);
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
 }

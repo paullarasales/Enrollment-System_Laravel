@@ -10,4 +10,9 @@ class Section extends Model
     use HasFactory;
 
     protected $fillable = ['section'];
+
+    public function studentAccounts()
+    {
+        return $this->hasMany(StudentAccount::class);
+    }
 }

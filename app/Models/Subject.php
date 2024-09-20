@@ -13,4 +13,9 @@ class Subject extends Model
         'subject_name',
         'year_level'
     ];
+
+    public function studentAccounts()
+    {
+        return $this->belongsToMany(StudentAccount::class, 'enrollments');
+    }
 }
