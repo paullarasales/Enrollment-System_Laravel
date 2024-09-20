@@ -11,6 +11,8 @@ Route::post('/student/logout', [StudentAuthController::class, 'logout'])->name('
 
 Route::middleware('student.auth')->group(function () {
 	Route::get('/enrollment', [EnrollmentController::class, 'index'])->name('enrollment.index');
+    Route::get('/enrollment/first-year', [EnrollmentController::class, 'enrollment']);
+    Route::post('/enrollment/save', [EnrollmentController::class, 'save'])->name('enrollment.save');
 });
 
 Route::get('/', function () {
