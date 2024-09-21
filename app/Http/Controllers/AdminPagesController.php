@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\StudentAccount;
+use App\Models\Section;
 
 class AdminPagesController extends Controller
 {
@@ -15,7 +16,8 @@ class AdminPagesController extends Controller
     public function manageStudents()
     {
         $students = StudentAccount::all();
-        return view('admin.manage-students', compact('students'));
+        $sections = Section::all();
+        return view('admin.manage-students', compact('students', 'sections'));
     }
 
     public function enrolledStudents()

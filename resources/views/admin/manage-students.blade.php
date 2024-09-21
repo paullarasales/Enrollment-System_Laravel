@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Manage Students</h1>
-    
+
     <a href="{{ route('admin.dashboard') }}">Back</a>
 
 
@@ -44,14 +44,29 @@
         @csrf
         <label for="student_number">Student Number:</label>
         <input type="text" name="student_number" id="student_number" required><br>
-
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required><br>
-
+    
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" required><br>
+    
+        <label for="middle_name">Middle Name:</label>
+        <input type="text" name="middle_name" id="middle_name" required><br>
+    
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" id="last_name" required><br>
+    
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br>
-
+    
+        <!-- Dropdown for selecting the section -->
+        <label for="section_id">Section:</label>
+        <select name="section_id" id="section_id" required>
+            @foreach($sections as $section)
+                <option value="{{ $section->id }}">{{ $section->section }}</option>
+            @endforeach
+        </select><br>
+    
         <button type="submit">Add Student</button>
     </form>
+    
 </body>
 </html>

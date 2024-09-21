@@ -10,6 +10,8 @@ class StudentAccount extends Authenticable
 {
     use HasFactory;
 
+    protected $table = 'student_accounts';
+
     protected $fillable = [
         'student_number',
         'password',
