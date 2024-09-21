@@ -21,6 +21,6 @@ class Enrollment extends Model
 
     public function subject()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class, 'subjects_id');
     }
 }

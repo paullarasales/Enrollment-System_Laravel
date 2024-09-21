@@ -10,11 +10,10 @@ Route::post('/student/login', [StudentAuthController::class, 'login'])->name('st
 Route::post('/student/logout', [StudentAuthController::class, 'logout'])->name('student.logout');
 
 Route::middleware('student.auth')->group(function () {
+    Route::get('/dashboard', [EnrollmentController::class, 'dashboard'])->name('enrollment.dashboard');
 	Route::get('/enrollment', [EnrollmentController::class, 'index'])->name('enrollment.index');
     Route::get('/enrollment/first-year', [EnrollmentController::class, 'enrollment']);
-    Route::post('/enrollment/save', [EnrollmentController::class, 'save'])->name('enrollment.save');
+    route::post('/enrollment/save', [EnrollmentController::class, 'saveEnrollment'])->name('enrollment.save');
+    Route::get('/enrollment/current-subjects', [EnrollmentController::class, 'enrolledSubjects'])->name('enrollment.currentSubjects');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});

@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Enrollment; // Assuming you have an Enrollment model
+use App\Models\Enrollment;
 use App\Models\Subject;
 use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentController extends Controller
 {
+    public function dashboard()
+    {
+        return view('welcome');
+    }
+
     public function index()
     {
 		$sections = Section::all();
@@ -27,7 +32,7 @@ class EnrollmentController extends Controller
         ]);
     }
 
-    public function save(Request $request)
+    public function saveEnrollment(Request $request)
     {
         $request->validate([
             'section_id' => 'required|exists:sections,id',
@@ -35,15 +40,28 @@ class EnrollmentController extends Controller
             'subject_ids.*' => 'exists:subjects,id',
         ]);
 
-        $studentId = Auth::user()->id;
+        //Authenticated student
+        $student = auth('students')->user();
 
-        $enrollment = Enrollment::create([
-            'student_accounts_id' => $studentId,
-            'section_id' => $request->section_id,
-        ]);
+        if (!$student) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
 
-        $enrollment->subjects()->attach($request->subject_ids);
+        //Loop through each selected subject and save enrollment
+        foreach ($request->subject_ids as $subjectId) {
+            Enrollment::create([
+                'student_accounts_id' => $student->id,
+                'subjects_id' => $subjectId,
+            ]);
+        }
 
-        return response()->json(['message' => 'Enrollment saved successfully!'], 200);
+        return response()->json(['success' => 'Enrollment saved successfully!']);
+    }
+
+    public function enrolledSubjects()
+    {
+        $studentId = auth('students')->id();
+        $enrolledSubjects = Enrollment::where('student_accounts_id', $studentId)->with('subject')->get();
+        return view('enrolledSubjects', compact('enrolledSubjects'));
     }
 }
