@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
-class StudentAuth
+class AdminAuth
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class StudentAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Session::has('student_id')) {
-            return redirect()->route('student.login');
+        if (!Session::has('admin_id')) {
+            return redirect()->route('admin.login');
         }
         return $next($request);
     }

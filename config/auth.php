@@ -17,6 +17,11 @@ return [
         'driver' => 'session',
         'provider' => 'students',
     ],
+    
+    'admin'  => [
+        'driver' => 'session',
+        'provider' => 'admins',
+    ]
 ],
 
 'providers' => [
@@ -29,6 +34,11 @@ return [
         'driver' => 'eloquent',
         'model' => App\Models\StudentAccount::class,
     ],
+
+    'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,
+    ]
 ],
 
 'passwords' => [

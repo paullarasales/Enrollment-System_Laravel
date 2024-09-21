@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Enrollment;
 use App\Models\Subject;
 use App\Models\Section;
+use App\Models\StudentAccount;
 use Illuminate\Support\Facades\Auth;
 
 class EnrollmentController extends Controller

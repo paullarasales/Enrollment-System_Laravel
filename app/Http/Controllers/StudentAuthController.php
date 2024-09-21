@@ -15,6 +15,7 @@ class StudentAuthController extends Controller
 
     public function login(Request $request) 
     {
+        // dd($request->all());
         $request->validate([
             'student_number' => 'required',
             'password' => 'required'
@@ -24,6 +25,7 @@ class StudentAuthController extends Controller
     
         if ($student && $student->password === $request->input('password')) {
             auth('students')->login($student); // Using the 'students' guard to log in the student
+            Session::put('student_id', $student->id);
             return redirect()->route('enrollment.dashboard');
         } else {
             return back()->with('error', 'Invalid Student ID or Password');

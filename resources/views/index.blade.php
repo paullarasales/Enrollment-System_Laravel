@@ -39,6 +39,7 @@
 
         <button type="submit" id="saveEnrollment" style="display: none;">Save Enrollment</button>
     </form>
+    <a href="{{ route('enrollment.dashboard') }}">Go back</a>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
