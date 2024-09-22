@@ -19,6 +19,8 @@ class StudentAccount extends Authenticable
         'middle_name',
         'last_name',
         'section_id',
+        'status',
+        'year_level',
     ];
 
     public function subjects()
@@ -30,4 +32,10 @@ class StudentAccount extends Authenticable
     {
         return $this->belongsTo(Section::class);
     }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'student_accounts_id');
+    }
+
 }

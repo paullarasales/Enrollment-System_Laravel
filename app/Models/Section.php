@@ -11,7 +11,7 @@ class Section extends Model
 
     protected $fillable = ['section'];
 
-    public function studentAccounts()
+    public function students()
     {
         return $this->hasMany(StudentAccount::class);
     }

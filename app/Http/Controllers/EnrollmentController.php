@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -18,18 +18,59 @@ class EnrollmentController extends Controller
 
     public function index()
     {
-		$sections = Section::all();
-        return view('index', compact('sections'));
+        $sections = Section::all();
+
+        $student = auth('students')->user();
+
+        $subjects = Subject::where('year_level', $student->year_level)->get();
+
+        $enrolledSubjects = [];
+        
+        if ($student) {
+            $enrolledSubjects = Enrollment::where('student_accounts_id', $student->id)
+                ->pluck('subjects_id')
+                ->toArray();
+        }
+
+        return view('index', compact('sections', 'student', 'subjects', 'enrolledSubjects'));
     }
+
+    
 
     public function enrollment()
     {
         $sections = Section::all();
         $firstYearSubjects = Subject::where('year_level', 1)->get();
+    
+        $student = auth('students')->user();
+        
+        //subjects already enrolled by the student
+        $enrolledSubjects = Enrollment::where('student_accounts_id', $student->id)
+            ->pluck('subjects_id')
+            ->toArray();
 
         return response()->json([
             'sections' => $sections,
-            'firstYearSubjects' => $firstYearSubjects
+            'firstYearSubjects' => $firstYearSubjects,
+            'enrolledSubjects' => $enrolledSubjects,
+        ]);
+    }
+
+    public function enrollmentSecondYear()
+    {
+        $sections = Section::all();
+        $secondYearSubjects = Subject::where('year_level', 2)->get();
+
+        $student = auth('students')->user();
+
+        $enrolledSubjects = Enrollment::where('student_accounts_id', $student->id)
+            ->pluck('subjects_id')
+            ->toArray();
+        
+        return response()->json([
+            'sections' => $sections,
+            'secondYearSubjects' => $secondYearSubjects,
+            'enrolledSubjects' => $enrolledSubjects,
         ]);
     }
 
@@ -41,22 +82,26 @@ class EnrollmentController extends Controller
             'subject_ids.*' => 'exists:subjects,id',
         ]);
 
-        //Authenticated student
+        // Authenticated student
         $student = auth('students')->user();
 
         if (!$student) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        //Loop through each selected subject and save enrollment
+        // Loop through each selected subject and save enrollment
         foreach ($request->subject_ids as $subjectId) {
-            Enrollment::create([
+            Enrollment::updateOrCreate([
                 'student_accounts_id' => $student->id,
                 'subjects_id' => $subjectId,
             ]);
         }
 
-        return response()->json(['success' => 'Enrollment saved successfully!']);
+        $student->section_id = $request->input('section_id');
+        $student->status = 'enrolled';
+        $student->save();
+
+        return redirect()->route('enrollment.currentSubjects');
     }
 
     public function enrolledSubjects()
@@ -64,5 +109,16 @@ class EnrollmentController extends Controller
         $studentId = auth('students')->id();
         $enrolledSubjects = Enrollment::where('student_accounts_id', $studentId)->with('subject')->get();
         return view('enrolledSubjects', compact('enrolledSubjects'));
+    }
+
+    public function checkStatus()
+    {
+        $student = auth('students')->user();
+
+        $status = $student->status;
+
+        return response()->json([
+            'status' => $status
+        ]);
     }
 }

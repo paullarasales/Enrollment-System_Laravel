@@ -11,10 +11,11 @@ class Subject extends Model
 
     protected $fillable = [
         'subject_name',
-        'year_level'
+        'year_level',
+        'code'
     ];
 
-    public function studentAccounts()
+    public function students()
     {
         return $this->belongsToMany(StudentAccount::class, 'enrollments');
     }
