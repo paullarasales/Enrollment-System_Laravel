@@ -61,7 +61,7 @@
     </style>
 </head>
 <body>
-    <h1>Enrolled Students of Bachelor of Science in Information and Technology</h1>
+    <h1>Enrolled Students of Bachelor of Science in Information Technology</h1>
     <a href="{{ route('admin.dashboard') }}">Back</a>
 
     @foreach ($sections as $section)
