@@ -40,7 +40,7 @@ class EnrollmentController extends Controller
     public function enrollment()
     {
         $sections = Section::all();
-        $firstYearSubjects = Subject::where('year_level', 1)->get();
+        $firstYearSubjects = Subject::where('year_level', 7)->get();
     
         $student = auth('students')->user();
         

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('student_accounts', function (Blueprint $table) {
-            $table->integer('year_level')->default(1);
+            $table->integer('year_level')->default(7);
         });
     }
 

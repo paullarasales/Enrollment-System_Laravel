@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 
 class AdminController extends Controller
@@ -22,7 +23,7 @@ class AdminController extends Controller
 
         $admin = Admin::where('username', $request->input('username'))->first();
 
-        if ($admin && $admin->password === $request->input('password')) {
+        if ($admin && Hash::check($request->input('password'), $admin->password)) {
             Session::put('admin_id', $admin->id);
             return redirect()->route('admin.dashboard');
         } else {

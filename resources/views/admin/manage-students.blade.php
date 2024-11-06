@@ -133,7 +133,7 @@
                     <td>{{ $student->middle_name}}</td>
                     <td>{{ $student->last_name}}</td>
                     <td>{{ $student->status}}</td>
-                    <td>{{ $student->year_level}}</td>
+                    <td>Grade {{ $student->year_level}}</td>
                     <td class="actions">
                         <a href="{{ route('student.edit', $student->id) }}" class="edit-btn">Edit</a>
                         <form action="{{ route('student.delete', $student->id) }}" method="POST" style="display:inline;">

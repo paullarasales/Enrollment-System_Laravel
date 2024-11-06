@@ -75,12 +75,15 @@ class AdminPagesController extends Controller
 
     public function manageSubjects()
     {
-        $firstYearSubjects = Subject::where('year_level', 1)->get();
-        $secondYearSubjects = Subject::where('year_level', 2)->get();
-        $thirdYearSubjects = Subject::where('year_level', 3)->get();
-        $fourthYearSubjects = Subject::where('year_level', 4)->get();
+        $firstYearSubjects = Subject::where('year_level', 7)->get();
+        $secondYearSubjects = Subject::where('year_level', 8)->get();
+        $thirdYearSubjects = Subject::where('year_level', 9)->get();
+        $fourthYearSubjects = Subject::where('year_level', 10)->get();
 
         return view('admin.manage-subjects', compact('firstYearSubjects', 'secondYearSubjects', 'thirdYearSubjects', 'fourthYearSubjects'));
     }
+
+    //sauce
+    //mikr-001
 
 }
