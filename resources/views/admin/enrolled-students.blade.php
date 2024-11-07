@@ -76,10 +76,10 @@
             <div class="year-select">
                 <form action="{{ route('admin.enrolledStudents') }}" method="GET">
                     <select name="year_level" onchange="this.form.submit()">
-                        <option value="1" {{ $yearLevel == 1 ? 'selected' : '' }}>First Year</option>
-                        <option value="2" {{ $yearLevel == 2 ? 'selected' : '' }}>Second Year</option>
-                        <option value="3" {{ $yearLevel == 3 ? 'selected' : '' }}>Third Year</option>
-                        <option value="4" {{ $yearLevel == 4 ? 'selected' : '' }}>Fourth Year</option>
+                        <option value="7" {{ $yearLevel == 7 ? 'selected' : '' }}>First Year</option>
+                        <option value="8" {{ $yearLevel == 8 ? 'selected' : '' }}>Second Year</option>
+                        <option value="9" {{ $yearLevel == 9 ? 'selected' : '' }}>Third Year</option>
+                        <option value="10" {{ $yearLevel == 10 ? 'selected' : '' }}>Fourth Year</option>
                     </select>
                 </form>
             </div>
